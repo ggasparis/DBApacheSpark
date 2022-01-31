@@ -131,12 +131,12 @@ Using the script on the next page, complete <> so that you can disable the join 
     disabled = sys.argv[1]
     spark = SparkSession.builder.appName('query1-sql').getOrCreate()
     if disabled == "Y":
-    spark.conf.set(<ονομα ιδιότητας>, <τιμή ιδιότητας>)
+    spark.conf.set(<field name>, <value>)
     elif disabled == 'N': pass
     else:
     df = spark.read.format("parquet")
-    raise Exception ("This setting is not available.") df1 = df.load(<Εδώ path για τον πίνακα ratings στο hdfs>)
-    df2 = df.load(<Εδώ path για τον πίνακα movie_genres στο hdfs>) df1.registerTempTable("ratings")
+    raise Exception ("This setting is not available.") df1 = df.load(<path for the ratings table on hdfs>)
+    df2 = df.load(<path for the movie_genres table on hdfs>) df1.registerTempTable("ratings")
     df2.registerTempTable("movie_genres") sqlString = \
     "SELECT * " + \ "FROM " + \
     "  (SELECT * FROM movie_genres LIMIT 100) as g, " + \
