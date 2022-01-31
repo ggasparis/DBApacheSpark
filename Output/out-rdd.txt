@@ -1,0 +1,66 @@
+Query 1
+('2000', 'Billy Elliot', 21.0)
+('2001', '~M~C~A~M~C~K~A~^~Z| ~A~W', 17.33)
+('2002', 'My Big Fat Greek Wedding', 72.75)
+('2003', 'Tarnation', 5329.34)
+('2004', 'Super Size Me', 438.62)
+('2005', '~[컴 ~H ~O~Y~I골', 4197475.62)
+('2006', 'Facing the Giants', 100.78)
+('2007', 'Paranormal Activity', 12889.39)
+('2008', 'Fireproof', 65.91)
+('2009', 'The Collector', 32.53)
+('2010', 'Catfish', 100.53)
+('2011', 'From Prada to Nada', 26880.72)
+('2012', 'Aquí Entre Nos', 2755583.0)
+('2013', 'Nurse 3-D', 999999.0)
+('2014', 'The Quiet Ones', 88.17)
+('2015', '~L~@~X', 2215.69)
+('2016', 'Split', 29.77)
+('2017', 'A Ghost Story', 154.84)
+
+Query 2
+0.87
+
+Query 3
+('Action', 3.1585329294510713, 1175)
+('Adventure', 3.1687090625255814, 707)
+('Animation', 3.1758854560200147, 223)
+('Comedy', 3.1370494677399536, 2113)
+('Crime', 3.1625839378882312, 907)
+('Documentary', 3.0742356093239853, 503)
+('Drama', 3.1391216242914504, 3724)
+('Family', 3.156905491920284, 386)
+('Fantasy', 3.142913521900702, 463)
+('Foreign', 3.1139858344079143, 271)
+('History', 3.1187910458495405, 306)
+('Horror', 3.1340202623924758, 723)
+('Music', 3.1890477821347676, 248)
+('Mystery', 3.148769392655548, 475)
+('Romance', 3.1562777018393633, 1206)
+('Science Fiction', 3.157163683913988, 593)
+('TV Movie', 3.148118069220997, 87)
+('Thriller', 3.148281748166091, 1427)
+('War', 3.1146633826061416, 231)
+('Western', 3.2140607181871013, 185)
+
+Query 4
+('2000-2004', 58.06576527525956)
+('2005-2009', 54.67512012712675)
+('2010-2014', 57.56888728258798)
+('2015-2019', 45.36504022364166)
+
+Query 5
+('Action', '8659', 588, 'Hulk', '15.422638', '5.0', 'The Day After Tomorrow', '15.049695', '2.0')
+('Adventure', '8659', 369, 'Mission: Impossible II', '18.97178', '4.5', 'Harry Potter and the Order of the Phoenix', '21.3643', '2.0')
+('Animation', '45811', 117, 'A Grand Day Out', '7.617298', '5.0', 'Astérix et ll
+a surprise de César', '7.174178', '0.5')
+('Comedy', '45811', 1024, 'Galaxy Quest', '15.831374', '5.0', "There's Something About Mary", '11.688958', '0.5')
+('Crime', '8659', 474, 'The Thomas Crown Affair', '9.444818', '5.0', 'Papillon', '15.698433', '2.0')
+('Documentary', '45811', 215, 'Crumb', '3.620388', '5.0', 'Paper Clips', '0.224164', '0.5')
+('Drama', '45811', 1815, 'Exodus: Gods and Kings', '16.320249', '5.0', 'The Great Escape', '14.384114', '0.5')
+('Family', '45811', 198, 'Galaxy Quest', '15.831374', '5.0', 'Astérix et la surr
+prise de César', '7.174178', '0.5')
+('Fantasy', '8659', 249, 'Blood: The Last Vampire', '2.925291', '5.0', 'The Addams Family', '12.962525', '0.5')
+('Foreign', '45811', 134, 'Dreams of a Life', '0.834786', '5.0', 'Shekvarebuli kulinaris ataserti retsepti', '0.631834', '1.0')
+('History', '8659', 155, 'Lawrence of Arabia', '10.893332', '4.5', 'Anna and the King', '17.65016', '2.0')
+('History', '45811', 155, 'The Last Emperor', '11.076971', '5.0', 'The Great Escape', '14.384114', '0.5')

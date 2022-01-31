@@ -1,0 +1,206 @@
+
+------------- Q1 --------------------
+
+Map (key, values):
+# key : LineID from movies.csv
+# values : (MovieID, Title, Summary, Date, Duration, ProdCosts, Gross, Pop)
+    if ProdCosts != 0 and Gross != 0 and YEAR(Date) >= 2000:
+        emit((YEAR(Date), (Title, ProdCosts, Gross)))
+
+Reduce (key, values):
+# key : year
+# values : list of respective values [(T1, PC1, G1), (T2, PC2, G2), ...], where T = title, PC = ProdCost, G = Gross
+    max = (T1, (G1 - PC1) / PC1)
+    for triplet in values:
+        curr = (triplet[Gross] - triplet[ProdCosts]) / triplet[ProdCosts]
+        if curr > max[1]:
+            max = (triplet[Title], curr)
+    emit(key, max)
+
+
+------------- Q2 --------------------
+
+Map (key, values):
+# key : LineID from ratings.csv
+# value : (UserID, MovieID, Rating, Timestamp)
+    emit(UserID, (1, Rating))
+
+Reduce (key, values):
+# key : UserID
+# value : list of respective values [(1, R1), (1, R2), ...], where R = rating
+    sum = 0
+    count = 0
+    for pair in values:
+        sum += pair[1]
+        count += pair[0]
+    emit(key, sum/count)
+
+
+------------- Q3 --------------------
+
+Map_v1 (key, values):
+# key : LineID from ratings.csv
+# values: (UserID, MovieID, Rating, Timestamp)
+    emit(MovieID, (1, Rating))
+
+Reduce (key, values):
+# key : MovieID
+# value : list of respective values [(1, R1), (1, R2), ...], where R = rating
+    sum = 0
+    count = 0
+    for pair in values:
+        sum += pair[1]
+        count += pair[0]
+    avrgRating = sum/count
+    emit(key, avrgRating)
+
+Map_v2 (key, values):
+# key : LineID from mapped ratings JOIN movie_genres
+# values : (MovieID, (avrgRating, Genre))
+    emit(Genre, (1, avrgRating))
+
+------------- Q4 --------------------
+
+Map_v1 (key, values):
+# key : LineID from movies.csv
+# values : (MovieID, Title, Summary, Date, Duration, ProdCosts, Gross, Pop)
+    if YEAR(Date) >= 2000
+        emit(MovieID, (Summary, YEAR(Date)))
+
+Map_v2 (key, values):
+# key : LineID from movie_genres.csv
+# values : (MovieID, Genre)
+    if Genre == 'Drama':
+        emit(MovieID, Genre)
+
+Map_v3 (key, values):
+# key : LineID from mapped movies JOIN mapped genres
+# values : (MovieID, ((Summary, Year), Genre))
+    if Summary:
+        emit(Year, (1, len(Summary.split(' '))))
+    else:
+        emit(Year, (1, 0))
+
+Reduce_v1 (key, values):
+# key : Year
+# values : list of respective values [(1, L1), (1, L2), ...], where L = length of summary
+    sum = 0
+    count = 0
+    for pair in values:
+        sum += pair[1]
+        count += pair[0]
+    avrgLength = sum/count
+    emit(key, avrgLength)
+
+Map_v4 (key, values):
+# key : Year
+# values : avrgLength
+    if key BETWEEN YEARGROUP:
+        emit(key, values)s
+
+
+
+
+------------- Q5 --------------------
+
+Map_v1 (key, values):
+# key : LineID from ratings.csv
+# values : (UserID, MovieID, Rating, Timestamp)
+    emit(MovieID, (UserID, Rating)) # ratings
+
+Map_v2 (key, values):
+# key : MovieID
+# value : values from ratings JOIN genres (MovieID, ((UserID, Rating), Genre))
+    emit((Genre, UserID), 1) # ratings_genres
+
+Reduce_v1 (key, values):
+# key : (Genre, UserID)
+# values : list of occurences [1, 1, ...]
+    emit(key, sum(values)) # ratings_genres
+
+Map_v3 (key values):
+# key : (Genre, UserID)
+# values : total number of occurencies, where UserID rated a Genred movie
+    emit(Genre, (UserID, timesRated)) # temp_genre_reviewers
+
+Reduce_v2 (key, values):
+# key : Genre
+# values : list of respective values [(U1, TR1), (U2, TR2), ...]
+    max = (U1, TR1)
+    for pair in values:
+        if pair[1] > max[1]:
+            max = (par[0], pair[1])
+    emit(key, max) # temp_genre_reviewers
+
+Map_v4 (key, values):
+# key : (Genre, UserID)
+# values : timesRated
+    emit((Genre, timesRated), UserID) # temp_ratings_genre
+
+Map_v5 (key, values):
+# key : Genre
+# value : (User, maxTimesRated)
+    emit((Genre, maxTimesRated), UserID)
+
+Map_v6 (key, values):
+# key : Genre
+# values : (UserID, maxTimesRated)
+    emit(Genre, (maxTimesRated, UserID)) # genre_reviewers
+
+Map_v7 (key, values):
+# key : MovieID
+# values: Genre
+    emit(values, key) # genres
+
+Map_v8 (key, values):
+# key : MovieID from genres JOIN genre_reviewers
+# values: (MovieID, (maxTimesRated, UserID))
+    emit(MovieID, (Genre, maxTimesRated, UserID))
+
+Map_v9 (key, values):
+# key : MovieID from Map_v8 JOIN movies
+# values : ((Genre, maxTimesRated, UserID), (MovieID, Title, Popularity))
+    emit(UserID, MovieID), (Genre, maxTimesRated, Genre, Title, Pop)
+
+Map_v10 (key, values):
+# key : (UserID, MovieID) from Map_v9 JOIN ratings
+# values : ((Genre, maxTimesRated, Genre, Title, Popularity), (Rating))
+    emit(Genre, maxTimesRated, UseID, Title, Popularity, Rating) # collection
+
+Map_v11 (key, values):
+# key : LineID from Map_v10
+# values : (Genre, maxTimesRated, UseID, Title, Popularity, Rating)
+    emit((Genre, maxTimesRated, Rating), (UserID, Title, Popularity)) # temp_collection
+
+Map_v12 (key, values):
+# key : LineID from Map_v10
+# values : (Genre, maxTimesRated, UseID, Title, Popularity, Rating)
+    emit((Genre, maxTimesRated), values)
+
+Reduce_v3 (key, values):
+# key : (Genre, maxTimesRated)
+# values : list of values [(Genre1, maxTimesRated1, UseID1, Title1, Popularity1, Rating1), ...]
+    max = Rating1
+    for pair in values:
+        if pair[Rating] > max:
+            max = pair[Rating]
+    emit((Genre, maxTimesRated), (Genre, maxTimesRated, UseID, Title, Popularity, maxRating))
+
+Map_v13 (key, values):
+# key : (Genre, maxTimesRated)
+# values : (Genre, maxTimesRated, UseID, Title, Popularity, maxRating)
+    emit((Genre, maxTimesRated, maxRating), maxRating)
+
+Map_v14 (key, values):
+# key : (Genre, maxTimesRated, maxRating) from Map_v13 JOIN temp_collection
+# values : (maxRating, (UserID, Title, Popularity))
+    emit((Genre, maxTimesRated, maxRating), (UserID, Title, Popularity))
+
+Reduce_v4 (key, values):
+# key : (Genre, maxTimesRated, maxRating)
+# values : list of respective values [(UserID1, Title1, Popularity1), ...]
+    max = Popularity1
+    for pair in values:
+        if pair[Populairty] > max:
+            max = pair[Popularity1]
+    emit(Genre, Genre, UserID), (maxTitle, maxPopularity, maxRating) # max_rating
