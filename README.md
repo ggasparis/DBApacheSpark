@@ -98,9 +98,11 @@ In this query, you are asked to convert any csv in hdfs to Parquet format by rea
 
 2.  As profit in Q1 you consider
 
+![alt text](https://github.com/ggasparis/DBApacheSpark/blob/main/images/image1.png)
 
 3.  As average rating of the item in Q3, we consider the average value of the average rating of each movie, according to user ratings, ie:
 
+![alt text](https://github.com/ggasparis/DBApacheSpark/blob/main/images/image2.png)
 
 Indicatively, to verify the solution you are given the answer line of the question for the category "Action"
 		(Action, 3.1585329294510713, 1175)
