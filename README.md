@@ -11,7 +11,7 @@ In this work, we will use Apache Spark to compute detailed queries on files that
 ✓ https://spark.apache.org/docs/2.4.4/rdd-programming-guide.html
 * Dataframe API / Spark SQL
 
-✓ https: // spark .apache.org / docs / 2.4.4 / sql-programming-guide.html
+✓ https://spark.apache.org/docs/2.4.4/sql-programming-guide.html
 
 Using the second API in the work recommends implementing with traditional SQL as described in the section https://spark.apache.org/docs/2.4.4 / sql-programming- guide.html # running-sql-queries-programmatically
 For the purposes of this work, a set of movie data from the Full MovieLens Dataset set can be used, which can be found here. In this work we will use a subset of a version available on [Kaggle](https://www.kaggle.com/rounakbanik/the-movies-dataset), which you can download via the following link:
